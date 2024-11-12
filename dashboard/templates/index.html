@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MoodLens Sentiment Analysis</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>MoodLens</h1>
+        <p>Enter your text below to analyze sentiment:</p>
+        <textarea id="input-text" placeholder="Type text here..."></textarea>
+        <button onclick="analyzeSentiment()">Analyze Sentiment</button>
+        <div id="result"></div>
+    </div>
+    <script>
+        async function analyzeSentiment() {
+            const text = document.getElementById("input-text").value;
+            const response = await fetch("/predict/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ text: text })
+            });
+            const data = await response.json();
+
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = `
+                <p>Sentiment: ${data.sentiment}</p>
+                <p>Probability: ${(data.probability * 100).toFixed(2)}%</p>
+            `;
+
+            // Устанавливаем цвет в зависимости от тональности
+            if (data.sentiment === "Positive") {
+                resultDiv.className = "positive";
+            } else {
+                resultDiv.className = "negative";
+            }
+        }
+    </script>
+</body>
+</html>

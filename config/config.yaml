@@ -1,0 +1,10 @@
+model:
+  embedding_dim: 300
+  n_filters: 100
+  filter_sizes: [3, 5, 7]
+  dropout_rate: 0.25
+  vocab_path: "../model/weights/config.pth"
+
+training:
+  batch_size: 512
+  n_epochs: 10

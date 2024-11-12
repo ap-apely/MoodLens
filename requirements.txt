@@ -1,0 +1,11 @@
+datasets
+numpy
+collections
+tqdm
+matplotlib
+fastapi 
+uvicorn
+torchtext
+hydra-core
+omegaconf
+rich
